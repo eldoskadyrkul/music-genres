@@ -1,0 +1,56 @@
+<span class="help is-danger">{{ errors }}</span>
+
+<div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card horizontal-form">
+                                <div class="card-header ">
+                                    <h4 class="card-title">Horizontal Form</h4>
+                                </div>
+                                <div class="card-body ">
+                                    <form class="form-horizontal" method="POST" action="/singer">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-6 control-label">Исполнитель</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" #singerName placeholder="Введите исполнителя" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-6 control-label">Название песни</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" #singerSong placeholder="Введите название песни" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-6 control-label">Жанр</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" #songGenres placeholder="Введите жанр песни" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-6 control-label">Год</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" #yearSong placeholder="Введите год песни" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-footer ">
+                                    <div class="col-md-9">
+                                        <button type="submit" class="btn btn-fill btn-info" [class.is-loading]="isLoading" (click)="addPlaylist(singerName.value, singerSong.value, songGenres.value, yearSong)">Add song</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
