@@ -34,5 +34,8 @@ interface SingerServiceInterface
 	*/
 	public function orderByYears(string $year): Singer;
 
-	public function getSinger(): Singer;
+    /**
+     * @return array
+     */
+	public function getSinger(): array;
 }

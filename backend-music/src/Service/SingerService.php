@@ -66,7 +66,7 @@ use App\Repository\SingerRepositoryInterface;
 		return $singer;
 	}
 
-	public function getSinger(): Singer
+	public function getSinger(): array
     {
         $singer = $this->repository->getSinger();
 

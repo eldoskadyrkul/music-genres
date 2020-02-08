@@ -82,7 +82,7 @@ class SingerRepository extends ServiceEntityRepository implements SingerReposito
         $this->manager->getEntityManager();
 
         $query = $this->manager->createQuery(
-            'SELECT s 
+            'SELECT s
             FROM App\Entity\Singer s
             WHERE s.name_singer = :name_singer
             ORDER BY s.name_singer ASC'
@@ -99,16 +99,16 @@ class SingerRepository extends ServiceEntityRepository implements SingerReposito
     */
     public function orderByGenres(string $genre): Singer
     {
-        $this->manager->getEventManager();
+        $entityManager = $this->getEntityManager()->getConnection();
 
-        $query = $this->manager->createQuery(
-            'SELECT s 
-            FROM App\Entity\Singer s
+        $sql = 'SELECT s FROM App\Entity\Singer s
             WHERE s.genres_song = :genres_song
-            ORDER BY s.genres_song ASC'
-        )->setParameter('genres_song', $genre);
+            ORDER BY s.genres_song ASC';
 
-        return $query->getResult();
+        $stmt = $entityManager->prepare($sql);
+        $stmt->execute(['genres_song' => $genre]);
+
+        return $stmt->fetchAll();
     }
 
     /**
@@ -129,7 +129,7 @@ class SingerRepository extends ServiceEntityRepository implements SingerReposito
         return $query->getResult();
     }
 
-    public function getSinger(): Singer
+    public function getSinger(): array
     {
         $this->manager->getEventManager();
 

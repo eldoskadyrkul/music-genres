@@ -55,6 +55,6 @@ interface SingerRepositoryInterface
 	*/
 	public function orderByYears(string $year): Singer;
 
-	public function getSinger(): Singer;
+	public function getSinger(): array;
 
 }

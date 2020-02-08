@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
+import {environment} from "../../environments/environment";
 
 export interface Singer {
 	id: number,
@@ -11,28 +12,20 @@ export interface Singer {
 	isUpdating: boolean
 }
 
-const API_URL: string = 'http://127.0.0.1:8000';
-
 @Injectable({
   providedIn: 'root'
 })
 export class SingerService {
 
   private headers;
+  API_URL: string;
 
-  constructor(private http: Http) { 
-    this.init();
-  }
-
-  async init() {
-    this.headers = new Headers({
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'POST',
-      'Access-Control-Allow-Origin': '*'});
+  constructor(private http: Http) {
+    this.API_URL = environment.backend;
   }
 
   getSingers(): Observable<Singer[]> {
-        return this.http.get(API_URL + '/singer',
+        return this.http.get(this.API_URL + '/singer',
             new RequestOptions({ headers: this.headers })
     	)
     	.map(res => {
@@ -46,7 +39,7 @@ export class SingerService {
   }
 
   addSinger(singer): Observable<Singer> {
-        return this.http.post(API_URL + '/add', singer,
+        return this.http.post(this.API_URL + '/add', singer,
             new RequestOptions({ headers: this.headers })
         ).map(res => res.json());
     }
