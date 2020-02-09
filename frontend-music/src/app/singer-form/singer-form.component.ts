@@ -26,11 +26,7 @@ export class SingerFormComponent implements OnInit {
     }
 
     addPlaylist() {
-        this.isLoading = true;
-        this.singerService.addSinger(this.singer).subscribe((data) => {
-          alert("Succesfully");
-        }, error1 => {
-          alert('Alert ' + error1);
-        });
+        console.log(this.singer);
+        this.singerService.addSinger(this.singer);
     }
 }

@@ -1,6 +1,5 @@
 <span class="help is-danger">{{ errors }}</span>
-
-<form>
+<form action="/singer" method="post">
   <div class="form-group">
       <label>Исполнитель</label>
       <input type="text" [(ngModel)]="singer.name_singer" name="name_singer" placeholder="Введите исполнителя" class="form-control">

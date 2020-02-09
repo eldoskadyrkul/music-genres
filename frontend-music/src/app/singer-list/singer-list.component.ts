@@ -28,8 +28,8 @@ export class SingerListComponent implements OnInit {
   getSingers() {
     this.isLoading = false;
   	this.service.getSingers();
-  	console.log(this.service.getSingers());
   }
+
 
 
 }

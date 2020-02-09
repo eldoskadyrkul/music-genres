@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Singer} from "../model/singer-model";
+import {delay, map} from "rxjs/operators";
 
 
 @Injectable({
@@ -25,7 +26,13 @@ export class SingerService {
   }
 
   addSinger(singer: Singer) {
-    const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.post(this.API_URL + '/singer', singer, {headers: headers});
+    this.getSingers();
+      const headers = new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'});
+    return this.http.post(this.API_URL + '/singer', singer, {headers: headers}).subscribe(data => {
+      console.log("POST Request is successfull ", data);
+    }, error => {
+      console.log("Error", error);
+    });
   }
+
 }

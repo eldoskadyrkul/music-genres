@@ -55,8 +55,8 @@ class SingerRepository extends ServiceEntityRepository implements SingerReposito
     */
     public function save(Singer $singer): Singer
     {
-    	$this->manager->persist($singer);
-    	$this->manager->flush();
+        $this->manager->persist($singer);
+        $this->manager->flush();
 
     	return $singer;
     }

@@ -28,6 +28,7 @@ class SingerController extends AbstractController
      * @return JsonResponse
      */
     public function create(Request $request): JsonResponse {
+
         $data = json_decode($request->getContent(), true);
 
         $singer = $this->singerService->create(

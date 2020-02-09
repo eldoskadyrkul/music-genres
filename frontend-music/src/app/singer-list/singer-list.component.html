@@ -1,21 +1,26 @@
-<div>
-    <span class="help is-info"  *ngIf="isLoading">Loading...</span>
+<span class="help is-info"  *ngIf="isLoading">Loading...</span>
+<div class="row">
+  <div class="panel panel-primary filterable">
+    <div class="panel-heading">
+      <h3 class="panel-title">PlaylistCRUD</h3>
+    </div>
     <table class="table" *ngIf="!isLoading">
-        <thead>
-            <tr>
-                <th>Исполнитель</th>
-                <th>Песня</th>
-                <th>Жанр</th>
-                <th>Год</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let singer of singers">
-                <td>{{ singer.name_singer }}</td>
-                <td>{{ singer.name_song }}</td>
-                <td>{{ singer.genres_song }}</td>
-                <td>{{ singer.year_song }}</td>
-            </tr>
-        </tbody>
+      <thead>
+      <tr>
+        <th>Исполнитель</th>
+        <th>Название песни</th>
+        <th>Жанр</th>
+        <th>Год</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let singer of singers">
+        <td>{{ singer.name_singer }}</td>
+        <td>{{ singer.name_song }}</td>
+        <td>{{ singer.genres_song }}</td>
+        <td>{{ singer.year_song }}</td>
+      </tr>
+      </tbody>
     </table>
+  </div>
 </div>
