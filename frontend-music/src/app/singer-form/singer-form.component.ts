@@ -1,6 +1,8 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Singer, SingerService } from '../service/singer.service';
+import { Component, OnInit } from '@angular/core';
+import { SingerService } from '../service/singer.service';
 import 'Rxjs/rx';
+import {Singer} from "../model/singer-model";
+
 
 @Component({
   selector: 'app-singer-form',
@@ -8,37 +10,27 @@ import 'Rxjs/rx';
   styleUrls: ['./singer-form.component.css']
 })
 export class SingerFormComponent implements OnInit {
-	
+
 	errors: string = '';
-    isLoading: boolean = false;
+  isLoading: boolean = false;
+  singer: Singer = {
+    name_singer: null,
+    name_song: null,
+    genres_song: null,
+    year_song: null
+  };
 
     constructor(private singerService: SingerService) { }
-
-    @Output()
-    singerAdded: EventEmitter<Singer> = new EventEmitter<Singer>();
 
     ngOnInit() {
     }
 
-    addPlaylist(name_singer, name_song, genres_song, year_song) {
+    addPlaylist() {
         this.isLoading = true;
-        this.singerService
-            .addSinger({
-                name_singer: name_singer,
-                name_song: name_singer,
-                genres_song: genres_song,
-                year_song: year_song,
-            })
-            .subscribe(
-                singer => {
-                    this.isLoading = false;
-                    singer.isUpdating = false;
-                    this.singerAdded.emit(singer);
-                },
-                error => {
-                    this.errors = error.json().errors;
-                    this.isLoading = false;
-                }
-            );
+        this.singerService.addSinger(this.singer).subscribe((data) => {
+          alert("Succesfully");
+        }, error1 => {
+          alert('Alert ' + error1);
+        });
     }
 }

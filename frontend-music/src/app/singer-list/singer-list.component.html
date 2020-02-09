@@ -3,7 +3,6 @@
     <table class="table" *ngIf="!isLoading">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Исполнитель</th>
                 <th>Песня</th>
                 <th>Жанр</th>
@@ -11,12 +10,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let singers of singers">
-                <td>{{ singers.id }}</td>
-                <td>{{ singers.name_singer }}</td>
-                <td>{{ singers.name_song }}</td>
-                <td>{{ singers.genres_song }}</td>
-                <td>{{ singers.year_song }}</td>
+            <tr *ngFor="let singer of singers">
+                <td>{{ singer.name_singer }}</td>
+                <td>{{ singer.name_song }}</td>
+                <td>{{ singer.genres_song }}</td>
+                <td>{{ singer.year_song }}</td>
             </tr>
         </tbody>
     </table>

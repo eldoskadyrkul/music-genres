@@ -2,45 +2,30 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
 import {environment} from "../../environments/environment";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Singer} from "../model/singer-model";
 
-export interface Singer {
-	id: number,
-	name_singer: string,
-	name_song: string,
-	genres_song: string,
-	year_song: string,
-	isUpdating: boolean
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class SingerService {
 
-  private headers;
   API_URL: string;
+  singers: Singer[];
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     this.API_URL = environment.backend;
   }
 
-  getSingers(): Observable<Singer[]> {
-        return this.http.get(this.API_URL + '/singer',
-            new RequestOptions({ headers: this.headers })
-    	)
-    	.map(res => {
-        	let modifiedResult = res.json();
-        	modifiedResult = modifiedResult.map(function(singer) {
-            singer.isUpdating = false;
-            return singer;
-        });
-        return modifiedResult;
+  getSingers() {
+    this.http.get(this.API_URL + '/singer').subscribe((data: Singer[]) => {
+      this.singers = data;
     });
   }
 
-  addSinger(singer): Observable<Singer> {
-        return this.http.post(this.API_URL + '/add', singer,
-            new RequestOptions({ headers: this.headers })
-        ).map(res => res.json());
-    }
+  addSinger(singer: Singer) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(this.API_URL + '/singer', singer, {headers: headers});
+  }
 }

@@ -24,7 +24,7 @@ class SingerController extends AbstractController
     }
 
     /**
-     * @Route("/add", methods={"POST"})
+     * @Route("/singer", methods={"POST"})
      * @return JsonResponse
      */
     public function create(Request $request): JsonResponse {

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Singer, SingerService } from '../service/singer.service';
+import { SingerService } from '../service/singer.service';
+import {Singer} from "../model/singer-model";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-singer-list',
@@ -8,35 +11,25 @@ import { Singer, SingerService } from '../service/singer.service';
 })
 export class SingerListComponent implements OnInit {
 
+  API_URL: string = environment.backend;
   singers: Singer[];
-  errorMsg: string;
   isLoading: boolean = true;
 
-  constructor(private service: SingerService) { }
+  constructor(private service: SingerService, private http:HttpClient) {
+    this.http.get(this.API_URL + '/singer').subscribe((data: Singer[]) => {
+      this.singers = data;
+    });
+  }
 
   ngOnInit() {
   	this.getSingers();
   }
 
   getSingers() {
-  	this.service
-  		.getSingers()
-  		.subscribe(
-  			singers => this.singers = singers,
-  			error => this.errorMsg = <any>error
-  		);
+    this.isLoading = false;
+  	this.service.getSingers();
+  	console.log(this.service.getSingers());
   }
 
-  findMovie(id): Singer {
-    return this.singers.find(singer => singer.id === id);
-  }
-
-  isUpdating(id): boolean {
-    return this.findMovie(id).isUpdating;
-  }
-
-  appendSinger(singers: Singer) {
-    this.singers.push(singers);
-  }
 
 }
