@@ -9,13 +9,15 @@ import { SingerListComponent } from './singer-list/singer-list.component';
 import { SingerFormComponent } from './singer-form/singer-form.component';
 import { HttpClientModule } from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import { OrderBySingerPipe } from './pipe/order-by-singer.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SingerListComponent,
-    SingerFormComponent
+    SingerFormComponent,
+    OrderBySingerPipe
   ],
   imports: [
     BrowserModule,

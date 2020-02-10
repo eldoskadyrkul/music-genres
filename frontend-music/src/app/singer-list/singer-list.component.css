@@ -1,0 +1,55 @@
+ul {
+  list-style-type: none;
+}
+.cd-filter-block h4 {
+  position: relative;
+  margin-bottom: .2em;
+  padding: 10px 0 10px 20px;
+  color: #9a9a9a;
+  text-transform: uppercase;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.cd-filter-block h4::before {
+  /* arrow */
+  content: '';
+  position: absolute;
+  left: 90%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background: url("https://entrusters.com/templates/yoo_moustache/html/com_entrusters_shop/products/ui-img/cd-icon-arrow.svg") no-repeat center center;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -webkit-transition: -webkit-transform 0.3s;
+  -moz-transition: -moz-transform 0.3s;
+  transition: transform 0.3s;
+}
+
+.cd-filter-block select {
+  /* shared style for input elements */  border-radius: 0;
+  background-color: #ffffff;
+  border: 2px solid #e6e6e6;
+}
+.cd-filter-block select {
+  width: 100%;
+  padding: .8em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  box-shadow: none;
+}
+.cd-filter-block select:focus {
+  outline: none;
+  background-color: #ffffff;
+  border-color: #f03d6c;
+}

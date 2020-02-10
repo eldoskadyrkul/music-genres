@@ -22,5 +22,60 @@
       </tr>
       </tbody>
     </table>
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(1)">First</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+      </li>
+      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="setPage(page)">{{page}}</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.totalPages)">Last</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <div class="cd-filter">
+      <form>
+        <div class="cd-filter-block">
+          <h4>Исполнители</h4>
+          <div class="cd-filter-content">
+            <div class="cd-select cd-filters">
+              <select class="filter" name="selectThis" id="selectThis1">
+                <option *ngFor="let s of singers" (click)="orderBy(name.value)" #name value="{{s.name_singer}}">{{s.name_singer}}</option>
+              </select>
+            </div> <!-- cd-select -->
+          </div> <!-- cd-filter-content -->
+        </div> <!-- cd-filter-block -->
+        <div class="cd-filter-block">
+          <h4>Жанр</h4>
+
+          <div class="cd-filter-content">
+            <div class="cd-select cd-filters">
+              <select class="filter" name="selectThis" id="selectThis2">
+                <option  *ngFor="let s of singers" value="{{ s.genres_song }}">{{ s.genres_song }}</option>
+              </select>
+            </div> <!-- cd-select -->
+          </div>
+        </div> <!-- cd-filter-block -->
+
+        <div class="cd-filter-block">
+          <h4>Год</h4>
+
+          <div class="cd-filter-content">
+            <div class="cd-select cd-filters">
+              <select class="filter" name="selectThis" id="selectThis">
+                <option *ngFor="let s of singers" value="{{s.year_song}}">{{ s.year_song }}</option>
+              </select>
+            </div> <!-- cd-select -->
+          </div> <!-- cd-filter-content -->
+        </div> <!-- cd-filter-block -->
+      </form>
   </div>
 </div>
