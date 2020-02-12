@@ -1,3 +1,28 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+
+dm_add_singer:
+    path: /singer/add/{singer}
+    controller: AppBundle:SingerController::create
+    methods: POST|GET
+dm_singer:
+    path: /singer
+    controller: App\Controller\SingerController::getSinger
+    methods: GET
+dm_order:
+    path: /singer/name_singer/{name}
+    controller: App\Controller\SingerController::orderName
+    methods: PATCH|POST|GET
+
+dm_ordergenres:
+    path: /singer/genres_song/{name}
+    controller: App\Controller\SingerController::orderGenres
+    methods: PATCH|POST|GET
+
+dm_orderyears:
+    path: /singer/years_song/{name}
+    controller: App\Controller\SingerController::orderYears
+    methods: PATCH|POST|GET
+

@@ -1,10 +1,10 @@
 <span class="help is-info"  *ngIf="isLoading">Loading...</span>
 <div class="row">
-  <div class="panel panel-primary filterable">
+  <div class="panel panel-primary filterable col-md-6">
     <div class="panel-heading">
       <h3 class="panel-title">PlaylistCRUD</h3>
     </div>
-    <table class="table" *ngIf="!isLoading">
+    <table class="table" id="table_box" *ngIf="!isLoading">
       <thead>
       <tr>
         <th>Исполнитель</th>
@@ -22,6 +22,7 @@
       </tr>
       </tbody>
     </table>
+    <!-- pager -->
     <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
       <li [ngClass]="{disabled:pager.currentPage === 1}">
         <a (click)="setPage(1)">First</a>
@@ -48,7 +49,7 @@
           <div class="cd-filter-content">
             <div class="cd-select cd-filters">
               <select class="filter" name="selectThis" id="selectThis1">
-                <option *ngFor="let s of singers" (click)="orderBy(name.value)" #name value="{{s.name_singer}}">{{s.name_singer}}</option>
+                <option *ngFor="let s of singers" (click)="orderName(name.value)" #name value="{{s.name_singer}}">{{s.name_singer}}</option>
               </select>
             </div> <!-- cd-select -->
           </div> <!-- cd-filter-content -->
@@ -59,7 +60,12 @@
           <div class="cd-filter-content">
             <div class="cd-select cd-filters">
               <select class="filter" name="selectThis" id="selectThis2">
-                <option  *ngFor="let s of singers" value="{{ s.genres_song }}">{{ s.genres_song }}</option>
+                <option (click)="orderGenres(genres.value)" #genres value="Pop">Pop</option>
+                <option (click)="orderGenres(genres.value)" #genres value="Dance music">Dance music</option>
+                <option (click)="orderGenres(genres.value)" #genres value="House">House</option>
+                <option (click)="orderGenres(genres.value)" #genres value="Rock">Rock</option>
+                <option (click)="orderGenres(genres.value)" #genres value="Rhythm-n-blues">Rhythm-n-blues</option>
+                <option (click)="orderGenres(genres.value)" #genres value="Dance">Dance</option>
               </select>
             </div> <!-- cd-select -->
           </div>
@@ -67,11 +73,10 @@
 
         <div class="cd-filter-block">
           <h4>Год</h4>
-
           <div class="cd-filter-content">
             <div class="cd-select cd-filters">
-              <select class="filter" name="selectThis" id="selectThis">
-                <option *ngFor="let s of singers" value="{{s.year_song}}">{{ s.year_song }}</option>
+              <select class="filter" name="selectThis" id="selectThis3">
+                <option *ngFor="let year of years" (click)="orderYear(year1.value)" #year1 value="year.name_year">{{ year.name_year }}</option>
               </select>
             </div> <!-- cd-select -->
           </div> <!-- cd-filter-content -->

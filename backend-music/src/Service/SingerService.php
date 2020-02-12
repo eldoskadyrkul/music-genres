@@ -4,14 +4,15 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Singer;
-use App\Repository\SingerRepositoryInterface;
+use App\Repository\SingerRepository;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
  class SingerService implements SingerServiceInterface
  {
 
  	private $repository;
 
- 	function __construct(SingerRepositoryInterface $repo)
+ 	function __construct(SingerRepository $repo)
  	{
  		$this->repository = $repo;
  	}
@@ -36,7 +37,7 @@ use App\Repository\SingerRepositoryInterface;
 	* @param @name string
 	* @return Singer
 	*/
-	public function orderByName(string $name): Singer
+	public function orderByName(string $name): array
 	{
 
 		$singer = $this->repository->orderByName($name);
@@ -48,7 +49,7 @@ use App\Repository\SingerRepositoryInterface;
 	* @param @genre string
 	* @return Singer
 	*/
-	public function orderByGenres(string $genre): Singer
+	public function orderByGenres(string $genre): array
 	{
 		$singer = $this->repository->orderByGenres($genre);
 
@@ -59,7 +60,7 @@ use App\Repository\SingerRepositoryInterface;
 	* @param @year int
 	* @return Singer
 	*/
-	public function orderByYears(string $year): Singer
+	public function orderByYears(string $year): array
 	{
 		$singer = $this->repository->orderByYears($year);
 
@@ -71,5 +72,12 @@ use App\Repository\SingerRepositoryInterface;
         $singer = $this->repository->getSinger();
 
         return $singer;
+    }
+
+    public function paginate(int $page, int $limit): array
+    {
+    	$singer = $this->repository->paginate($page, $limit);
+
+    	return $singer;
     }
  }

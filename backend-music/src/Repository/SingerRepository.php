@@ -6,6 +6,7 @@ use App\Entity\Singer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class SingerRepository extends ServiceEntityRepository implements SingerRepositoryInterface
 {
@@ -45,6 +46,10 @@ class SingerRepository extends ServiceEntityRepository implements SingerReposito
     	*/
     	$singer = parent::findOneBy(['id' => $id]);
 
+        if ($singer == null) {
+            throw new Exception("Пользователя под таким номером {$id} не существует");
+        }
+
     	return $singer;
     }
 
@@ -74,12 +79,8 @@ class SingerRepository extends ServiceEntityRepository implements SingerReposito
 		return $singer;
 	}	
 
-    /**
-    * @param @name string
-    * @return Singer
-    */
-    public function orderByName(string $name): Singer {
-        $this->manager->getEntityManager();
+    public function orderByName(string $name): array {
+        $this->manager->getEventManager();
 
         $query = $this->manager->createQuery(
             'SELECT s.name_singer, s.name_song, s.genres_song, s.year_song
@@ -97,30 +98,32 @@ class SingerRepository extends ServiceEntityRepository implements SingerReposito
     * @param @genre string
     * @return Singer
     */
-    public function orderByGenres(string $genre): Singer
+    public function orderByGenres(string $genre): array
     {
-        $entityManager = $this->getEntityManager()->getConnection();
+        $this->manager->getEventManager();
 
-        $sql = 'SELECT s.name_singer, s.name_song, s.genres_song, s.year_song FROM App\Entity\Singer s
+        $query = $this->manager->createQuery(
+            'SELECT s.name_singer, s.name_song, s.genres_song, s.year_song
+            FROM App\Entity\Singer s
             WHERE s.genres_song = :genres_song
-            ORDER BY s.genres_song ASC';
+            ORDER BY s.genres_song ASC'
+        )->setParameter('genres_song', $genre);
 
-        $stmt = $entityManager->prepare($sql);
-        $stmt->execute(['genres_song' => $genre]);
 
-        return $stmt->fetchAll();
+
+        return $query->getResult();
     }
 
     /**
     * @param @year int
     * @return Singer
     */
-    public function orderByYears(string $year): Singer
+    public function orderByYears(string $year): array
     {
         $this->manager->getEventManager();
 
         $query = $this->manager->createQuery(
-            'SELECT s 
+            'SELECT s.name_singer, s.name_song, s.genres_song, s.year_song  
             FROM App\Entity\Singer s
             WHERE s.year_song = :year_song
             ORDER BY s.year_song ASC'
@@ -140,6 +143,17 @@ class SingerRepository extends ServiceEntityRepository implements SingerReposito
         return $query->getResult();
     }
 
+    public function paginate(int $page, int $limit): array 
+    {
+        $this->manager->getEventManager();
+
+        $query = $this->manager->createQuery(
+            'SELECT s.name_singer, s.name_song, s.genres_song, s.year_song 
+            FROM App\Entity\Singer s'
+        )->setFirstResult(($limit * $page) - $limit)
+        ->setMaxResult($limit);
+        return $query->getResult();
+    }
     public function  findAll()
     {
 

@@ -20,22 +20,27 @@ interface SingerServiceInterface
 	* @param @name string
 	* @return Singer
 	*/
-	public function orderByName(string $name): Singer;
+	public function orderByName(string $name): array;
 
 	/**
 	* @param @genre string
 	* @return Singer
 	*/
-	public function orderByGenres(string $genre): Singer;
+	public function orderByGenres(string $genre): array;
 
 	/**
 	* @param @year int
 	* @return Singer
 	*/
-	public function orderByYears(string $year): Singer;
+	public function orderByYears(string $year): array;
 
     /**
      * @return array
      */
 	public function getSinger(): array;
+
+	/**
+	 * @return array
+	*/
+	public function paginate(int $page, int $limit): array;
 }

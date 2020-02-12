@@ -53,3 +53,6 @@ ul {
   background-color: #ffffff;
   border-color: #f03d6c;
 }
+a {
+  cursor: pointer;
+}
